@@ -13,7 +13,7 @@ class App extends React.Component {
                     <Header />
                     <div class="nav-scroller py-1 mb-2">
                 </div>
-        <div className={"container"}>
+        <div className="container">
             <CharactersList />
     </div>
 
