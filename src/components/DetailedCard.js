@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 
-
 function DetailedCard(props) {
     return (
             <div className="row">
@@ -35,7 +34,5 @@ function DetailedCard(props) {
                         </div>
             </div>
 )
-
 }
-
 export default DetailedCard
