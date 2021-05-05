@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react"
 import './CharacterCard/style.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import Header from "./Header/Header"
-import axios from 'axios'
-
+import {Link} from "react-router-dom";
 
 export default function DetailedCard (props) {
 
@@ -25,7 +23,7 @@ export default function DetailedCard (props) {
                     setError(error);
                 }
             )
-    }, [])
+    }, [setIsLoaded])
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -34,18 +32,17 @@ export default function DetailedCard (props) {
     } else {
 
         return (
-            <div>
-                <Header/>
-                <div className="row">
-                    {card.id}
-                    <div className="col-12 card pt-3 pb-3">
+            <div className="container">
+      <div className="row">
+          <div className="col-12 card pt-3 pb-3 ">
                         <div className="row no-gutters px-0">
                             <div className="col-sm-5 d-flex align-items-center justify-content-center">
-                                <img src={card.image} className="img-thumbnail" style={{"max-width": "50%"}} alt="..."/>
+                                <img src={card.image} className="img-thumbnail" style={{"max-width": "70%"}} alt="..."/>
                             </div>
                             <div className="col-sm-7">
+                                <h1 className="card-title pricing-card-title text-lg-left text-center mt-3">{card.name}</h1>
                                 <div className="card-body">
-                                    <h1 className="card-title pricing-card-title">{card.name}</h1>
+
                                     <ul className="list-unstyled mt-3">
                                         <li className="mb-lg-3 mb-md-2 mb-sm-1"><small
                                             className="text-muted">Status: </small>
@@ -64,8 +61,12 @@ export default function DetailedCard (props) {
                                             {/*<h4>{console.log(card.location.name)}</h4>*/}
                                         </li>
                                     </ul>
-                                    <button type="button" className="btn btn-lg btn-block btn-dark">Episodes
-                                    </button>
+
+                                    <Link to={`/card/${card.id}/episodes`}>
+                                        <button type="button" className="btn btn-lg btn-dark">
+                                            Episodes
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
