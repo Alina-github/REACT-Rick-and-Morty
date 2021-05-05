@@ -5,14 +5,12 @@ import Homepage from "./Homepage/Homepage"
 import Header from "./Header/Header.js"
 import DetailedCard from "./DetailedCard"
 import Episodes from "./Episodes"
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends React.Component {
 
     render() {
-
         return (
-
             <Router>
                 <main>
                     <Header/>
@@ -22,9 +20,7 @@ class App extends React.Component {
                     <Route path="/card/:id/episodes" component={Episodes} />
                 </main>
             </Router>
-
         )
     }
 }
 export default App
-

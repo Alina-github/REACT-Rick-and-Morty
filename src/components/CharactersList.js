@@ -4,8 +4,6 @@ import CharacterCard from "./CharacterCard"
 import axios from "axios"
 import { Link } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner'
-
-
 const CharactersList = () => {
 
     const cardsLimit = 10;
@@ -23,8 +21,7 @@ const CharactersList = () => {
     const [idRange, setIdRange] = useState(1);
     const [isFetching, setIsFetching] = useState(false);
 
-    // loads data the first time you load the page and is triggered once.
-    const loadData = () => {
+    const loadCards = () => {
         let url = `https://rickandmortyapi.com/api/character/${getRangeofCharacters(idRange)}`;
         axios.get(url).then(res => {
             setData(res.data);
@@ -32,8 +29,8 @@ const CharactersList = () => {
         });
     }
 
-    // gets more data and is triggered once a user scrolls down to the bottom.
-    const moreData = () => {
+    // is triggered once a user scrolls down to the bottom.
+    const loadMoreCards = () => {
         let url = `https://rickandmortyapi.com/api/character/${getRangeofCharacters(idRange)}`;
         axios.get(url).then(res => {
             setData([...data, ...res.data]);
@@ -48,21 +45,18 @@ const CharactersList = () => {
     }
 
     useEffect(() => {
-        loadData()
+        loadCards()
         // we registered our isScrolling function to listen to the event scroll
         window.addEventListener("scroll", isScrolling);
         return () => window.removeEventListener("scroll", isScrolling);
     }, []) //  отписываемся от этого слушателя, когда компонент отключен, когда компонент размонтируется.
-
 
     // useEffect#2 listens to the isFetching useState, then gets more data when
     // it's true (isFetching turns to 'true' as soon as we scrolls to the bottom
     // *isScrolling func)
     useEffect(() => {
         if (isFetching) {
-
-            setTimeout(moreData, 2000);
-
+            setTimeout(loadMoreCards, 2000);
         }
     }, [isFetching]);
 
@@ -71,30 +65,27 @@ const CharactersList = () => {
     // этот массив, вызов будет перезапущен.
 
     // Check if data is ready or not.
+
     if (data.length === 0) {
         return <p>Loading...</p>;
     }
 
     return (
         <div>
-                <div className="container">
-
-                    {data.map((item, key) => (
-                        <div key={key}>
-                            <Link to={`/card/${item.id}`}>
-                                <CharacterCard
-                                    item={item}
-                                    onClick={() => console.log(`${item.id}`)}/>
-                            </Link>
-                        </div>
-                    ))}
-                     <div className = "mb-3">
-                        { isFetching ? <Spinner animation="border" role="status">
-                        <span className="sr-only" >Loading...</span>
-                    </Spinner> : null}
-                        </div>
+            <div className="container">
+                {data.map((item, key) => (
+                    <div key={key}>
+                        <Link to={`/card/${item.id}`}>
+                            <CharacterCard
+                                item={item}
+                                onClick={() => console.log(`${item.id}`)}/>
+                        </Link>
+                    </div>
+                ))}
+                <div className = "mb-3">
+                    { isFetching ? <Spinner animation="border" role="status"><span className="sr-only" >Loading...</span></Spinner> : null}
                 </div>
-
+            </div>
         </div>
     )
 }
