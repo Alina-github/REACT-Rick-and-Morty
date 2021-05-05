@@ -8,7 +8,7 @@ function Header() {
             <div className="container">
                 <div className="row flex-nowrap justify-content-between align-items-center">
                     <div className="col-4 pt-1">
-                        <img src="/logo.svg" style={{width: "150px"}}
+                        <img src="/logo.svg"
                              className="col-4 d-flex justify-content-start align-items-center"/>
                     </div>
                     <div className="col-4 text-center">
@@ -28,6 +28,7 @@ function Header() {
                     </div>
                 </div>
             </div>
+            {/*This is the Home page. Follow the link to see <a href="/feed">feed</a>*/}
         </header>
 
     )
