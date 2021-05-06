@@ -84,7 +84,6 @@ const CharactersList = () => {
                     { isFetching ? <Loader /> : null}
                 </div>
             </div>
-
             <Switch>
                 <Route path={`${path}/:id`} component={DetailedCard}>
                 </Route>
