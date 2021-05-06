@@ -24,7 +24,7 @@ class App extends React.Component {
                         <Route path="/" exact component={Homepage} />
                         <Route path="/feed" exact component={CharactersList} />
                         <Route path="/feed/card/:id" exact component={DetailedCard} />
-                        {/*<Route path="/card/:id/episodes" component={Episodes} />*/}
+                        <Route path="/feed/card/:id/episodes" component={Episodes} />
                     </ Switch>
                 </main>
             </Router>

@@ -67,11 +67,11 @@ import { useParams } from "react-router-dom";
                                             <h4>{card.location?.name}</h4>
                                         </li>
                                     </ul>
-                                    {/*<Link to={`card/${card.id}/episodes`}>*/}
-                                    {/*    <button type="button" className="btn btn-lg btn-dark">*/}
-                                    {/*        Episodes*/}
-                                    {/*    </button>*/}
-                                    {/*</Link>*/}
+                                    <Link to={`${card.id}/episodes`}>
+                                      <button type="button" className="btn btn-lg btn-dark">
+                                        Episodes
+                                     </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 export default function Homepage () {
 
 return (
-    <div className="container text-center pt-5">
+    <div className="container text-center pt-5" style={{opacity: ".8" }}>
     <h3>This is the Homepage</h3>
-        <img src= 'home.svg' style={{opacity: ".8" }}/>
+        <img src= 'home.svg' />
     <h3>Please follow the link to see <a href="/feed"> Feed</a></h3>
     </div>
 )

@@ -79,8 +79,6 @@ const CharactersList = () => {
                         </Link>
                     </div>
                 ))}
-
-
                 <div className = "text-center mb-3">
                     { isFetching ? <Loader /> : null}
                 </div>

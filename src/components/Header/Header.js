@@ -1,5 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.css'
+import {Link} from "react-router-dom";
 
 function Header() {
     return (
@@ -7,9 +8,11 @@ function Header() {
             <div className="container">
                 <div className="row flex-nowrap justify-content-between align-items-center">
                     <div className="col-4 pt-1">
-                        <img src="/logo.svg"
+                        <Link to={`/`}>
+                            <img src="/logo.svg"
                              className="col-4 d-flex justify-content-start align-items-center"
-                        style={{maxWidth: "65%"}}/>
+                             style={{maxWidth: "65%"}}/>
+                        </Link>
                     </div>
                     <div className="col-4 text-center">
                         <h1 className="blog-header-logo text-dark display-4">Rick and Morty</h1>
