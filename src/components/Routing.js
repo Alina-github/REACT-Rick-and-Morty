@@ -1,7 +1,7 @@
 import React from 'react'
 import CharactersList from './CharactersList'
 import DetailedCard from './DetailedCard'
-import Homepage from './Homepage'
+import Homepage from './Homepage/Homepage'
 import {
     BrowserRouter as Router,
     Switch,
