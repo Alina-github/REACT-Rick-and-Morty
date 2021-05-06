@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from "react";
 import './CharacterCard/style.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loader from "./Loader"
+import { useParams } from "react-router-dom";
 
-export default function DetailedCard (props) {
+
+export default function DetailedCard () {
+
+    let { id } = useParams();
 
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [card, setCard] = useState({});
 
     useEffect(() => {
-        fetch(`https://rickandmortyapi.com/api/character/${props.match.params.id}`)
+        fetch(`https://rickandmortyapi.com/api/character/1`)
             .then(res => res.json())
             .then(
                 (result) => {
                     setIsLoaded(true);
                     setCard(result);
                 },
-
                 (error) => {
                     setIsLoaded(true);
                     setError(error);
@@ -33,7 +36,7 @@ export default function DetailedCard (props) {
             <Loader />
         )
     } else {
-
+console.log(card)
         return (
             <div className="container d-flex align-items-center" style={{minHeight: "600px"}}>
                 <div className="row col-12 justify-content-center">
@@ -58,12 +61,12 @@ export default function DetailedCard (props) {
                                             className="text-muted">Gender: </small>
                                             <h4 className="d-inline">{card.gender}</h4>
                                         </li>
-                                        <li className="mb-lg-3 mb-md-2 mb-sm-1"><small className="text-muted">Last known
-                                            location: </small>
-                                            {/*<h4>{console.log(card.location.name)}</h4>*/}
-                                        </li>
+                                        {/*<li className="mb-lg-3 mb-md-2 mb-sm-1"><small className="text-muted">Last known*/}
+                                        {/*    location: </small>*/}
+                                        {/*    <h4>{card.location.name}</h4>*/}
+                                        {/*</li>*/}
                                     </ul>
-                                    <Link to={`/card/${card.id}/episodes`}>
+                                    <Link to={`card/${card.id}/episodes`}>
                                         <button type="button" className="btn btn-lg btn-dark">
                                             Episodes
                                         </button>

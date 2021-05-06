@@ -5,7 +5,13 @@ import Homepage from "./Homepage/Homepage"
 import Header from "./Header/Header.js"
 import DetailedCard from "./DetailedCard"
 import Episodes from "./Episodes"
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {   BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams,
+    useRouteMatch
+}  from "react-router-dom";
 
 class App extends React.Component {
 
@@ -14,10 +20,12 @@ class App extends React.Component {
             <Router>
                 <main>
                     <Header/>
-                    <Route path="/" exact component={Homepage} />
-                    <Route path="/feed"  component={CharactersList} />
-                    <Route path="/card/:id" exact component={DetailedCard} />
-                    <Route path="/card/:id/episodes" component={Episodes} />
+                    {/*<Switch>*/}
+                        <Route path="/" exact component={Homepage} />
+                        <Route path="/feed"  component={CharactersList} />
+                        <Route path="/card/:id" exact component={DetailedCard} />
+                        {/*<Route path="/card/:id/episodes" component={Episodes} />*/}
+                    {/*</ Switch>*/}
                 </main>
             </Router>
         )
