@@ -11,4 +11,5 @@ return (
     <h3>Please follow the link to see <a href="/feed"> Feed</a></h3>
     </div>
 )
+
 }
