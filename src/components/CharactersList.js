@@ -3,11 +3,11 @@ import 'bootstrap/dist/css/bootstrap.css'
 import CharacterCard from "./CharacterCard"
 import axios from "axios"
 import { Link } from "react-router-dom";
-import Spinner from 'react-bootstrap/Spinner'
+import Loader from './Loader'
+
 const CharactersList = () => {
 
     const cardsLimit = 10;
-
     const getRangeofCharacters = (id) => {
         let charactersIds = [];
         for (let i = 0; i < cardsLimit; i++) {
@@ -23,15 +23,16 @@ const CharactersList = () => {
 
     const loadCards = () => {
         let url = `https://rickandmortyapi.com/api/character/${getRangeofCharacters(idRange)}`;
+        // let url = `https://rickandmortyapi.com/api/character?_limit=10`;
+
         axios.get(url).then(res => {
             setData(res.data);
             setIdRange(idRange + cardsLimit)
         });
     }
 
-    // is triggered once a user scrolls down to the bottom.
     const loadMoreCards = () => {
-        let url = `https://rickandmortyapi.com/api/character/${getRangeofCharacters(idRange)}`;
+        let url = `https://rickandmortyapi.com/api/character/${getRangeofCharacters(idRange)}`
         axios.get(url).then(res => {
             setData([...data, ...res.data]);
             setIdRange(idRange + 10)
@@ -51,23 +52,17 @@ const CharactersList = () => {
         return () => window.removeEventListener("scroll", isScrolling);
     }, []) //  отписываемся от этого слушателя, когда компонент отключен, когда компонент размонтируется.
 
-    // useEffect#2 listens to the isFetching useState, then gets more data when
-    // it's true (isFetching turns to 'true' as soon as we scrolls to the bottom
-    // *isScrolling func)
     useEffect(() => {
         if (isFetching) {
             setTimeout(loadMoreCards, 2000);
         }
     }, [isFetching]);
 
-    // useEffect вызывается каждый раз, когда
-    // происходит обновление. Если вы передадите какие-либо значения в
-    // этот массив, вызов будет перезапущен.
-
     // Check if data is ready or not.
-
     if (data.length === 0) {
-        return <p>Loading...</p>;
+        return (
+            <Loader />
+        )
     }
 
     return (
@@ -82,8 +77,8 @@ const CharactersList = () => {
                         </Link>
                     </div>
                 ))}
-                <div className = "mb-3">
-                    { isFetching ? <Spinner animation="border" role="status"><span className="sr-only" >Loading...</span></Spinner> : null}
+                <div className = "text-center mb-3">
+                    { isFetching ? <Loader /> : null}
                 </div>
             </div>
         </div>
@@ -91,9 +86,4 @@ const CharactersList = () => {
 }
 export default CharactersList
 
-//use hooks useState and useEffect to track local states inside the component
-// Первое значение — это отслеживаемое значение текущего состояния,
-// а второе — функция для обновления значения состояния.
-// const [count, setCount] = useState(0)
-//  setState объединяет свойства объекта, но useState заменяет все значение.
 
