@@ -4,11 +4,12 @@ import CharacterCard from "./CharacterCard"
 import axios from "axios"
 import { Link, Switch, Route, useRouteMatch } from "react-router-dom";
 import Loader from './Loader'
-import DetailedCard from './DetailedCard'
+import {DetailedCard} from './DetailedCard'
 
 const CharactersList = () => {
 
     let { path, url } = useRouteMatch();
+
 
     const cardsLimit = 10;
     const getRangeofCharacters = (id) => {
@@ -50,7 +51,7 @@ const CharactersList = () => {
 
     useEffect(() => {
         loadCards()
-        // we registered our isScrolling function to listen to the event scroll
+
         window.addEventListener("scroll", isScrolling);
         return () => window.removeEventListener("scroll", isScrolling);
     }, [])
@@ -73,21 +74,17 @@ const CharactersList = () => {
             <div className="container">
                 {data.map((item, key) => (
                     <div key={key}>
-                        <Link to={`${url}/card/${item.id}`}>
-                            <CharacterCard
-                                item={item}
-                                onClick={() => console.log(`${item.id}`)}/>
+                        <Link to={`${path}/card/${item.id}`}>
+                            <CharacterCard item={item}  />
                         </Link>
                     </div>
                 ))}
+
+
                 <div className = "text-center mb-3">
                     { isFetching ? <Loader /> : null}
                 </div>
             </div>
-            <Switch>
-                <Route path={`${path}/:id`} component={DetailedCard}>
-                </Route>
-            </Switch>
 
         </div>
     )

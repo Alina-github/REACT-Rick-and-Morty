@@ -28,7 +28,6 @@ function Header() {
                     </div>
                 </div>
             </div>
-            {/*This is the Home page. Follow the link to see <a href="/feed">feed</a>*/}
         </header>
 
     )

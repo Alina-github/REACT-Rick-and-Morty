@@ -6,7 +6,7 @@ import Loader from "./Loader"
 import { useParams } from "react-router-dom";
 
 
-export default function DetailedCard () {
+ const DetailedCard = () => {
 
     let { id } = useParams();
 
@@ -15,7 +15,7 @@ export default function DetailedCard () {
     const [card, setCard] = useState({});
 
     useEffect(() => {
-        fetch(`https://rickandmortyapi.com/api/character/1`)
+        fetch(`https://rickandmortyapi.com/api/character/${id}`)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -27,7 +27,7 @@ export default function DetailedCard () {
                     setError(error);
                 }
             )
-    }, [setIsLoaded])
+    }, [])
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -36,7 +36,8 @@ export default function DetailedCard () {
             <Loader />
         )
     } else {
-console.log(card)
+        console.log(card)
+
         return (
             <div className="container d-flex align-items-center" style={{minHeight: "600px"}}>
                 <div className="row col-12 justify-content-center">
@@ -61,16 +62,16 @@ console.log(card)
                                             className="text-muted">Gender: </small>
                                             <h4 className="d-inline">{card.gender}</h4>
                                         </li>
-                                        {/*<li className="mb-lg-3 mb-md-2 mb-sm-1"><small className="text-muted">Last known*/}
-                                        {/*    location: </small>*/}
-                                        {/*    <h4>{card.location.name}</h4>*/}
-                                        {/*</li>*/}
+                                        <li className="mb-lg-3 mb-md-2 mb-sm-1"><small className="text-muted">Last known
+                                            location: </small>
+                                            <h4>{card.location?.name}</h4>
+                                        </li>
                                     </ul>
-                                    <Link to={`card/${card.id}/episodes`}>
-                                        <button type="button" className="btn btn-lg btn-dark">
-                                            Episodes
-                                        </button>
-                                    </Link>
+                                    {/*<Link to={`card/${card.id}/episodes`}>*/}
+                                    {/*    <button type="button" className="btn btn-lg btn-dark">*/}
+                                    {/*        Episodes*/}
+                                    {/*    </button>*/}
+                                    {/*</Link>*/}
                                 </div>
                             </div>
                         </div>
@@ -80,6 +81,7 @@ console.log(card)
         )
     }
 }
+export default DetailedCard
 
 
 

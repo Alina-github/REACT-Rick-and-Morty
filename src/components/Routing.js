@@ -20,8 +20,8 @@ export default function NestingExample() {
                 <Header/>
                 <Switch>
                 <Route path="/" exact component={Homepage} />
-                <Route path="/feed"  component={CharactersList} />
-                {/*<Route path="/card/:id" exact component={DetailedCard} />*/}
+                <Route path="/feed" exact component={CharactersList} />
+                <Route path="/feed/card/:id" component = {DetailedCard} />
                 {/*<Route path="/card/:id/episodes" component={Episodes} />*/}
                 </ Switch>
             </main>
