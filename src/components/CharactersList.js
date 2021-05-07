@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, {Fragment, useState, useEffect } from "react"
 import 'bootstrap/dist/css/bootstrap.css'
 import CharacterCard from "./CharacterCard"
 import axios from "axios"
@@ -8,7 +8,7 @@ import {DetailedCard} from './DetailedCard'
 
 const CharactersList = () => {
 
-    let { path, url } = useRouteMatch();
+    let { path } = useRouteMatch();
 
 
     const cardsLimit = 10;
@@ -70,21 +70,30 @@ const CharactersList = () => {
     }
 
     return (
-        <div>
+        <>
             <div className="container">
+                <div className="text-center m-3">
+                    <label htmlFor="charachterName" className="mr-1">
+                        <strong>Name:
+                        </strong>
+                    </label>
+                    <input name="name" id="charachterName"></input>
+                    <button type="submit">search</button>
+                </div>
                 {data.map((item, key) => (
-                    <div key={key}>
+                    // don't use single <div> for grouping elements
+                    //use Fragment instead
+                    <Fragment key={key}>
                         <Link to={`${path}/card/${item.id}`}>
                             <CharacterCard item={item}  />
                         </Link>
-                    </div>
+                    </Fragment>
                 ))}
                 <div className = "text-center mb-3">
                     { isFetching ? <Loader /> : null}
                 </div>
             </div>
-
-        </div>
+        </>
     )
 }
 export default CharactersList

@@ -39,6 +39,7 @@ import { useParams } from "react-router-dom";
         console.log(card)
 
         return (
+
             <div className="container d-flex align-items-center" style={{minHeight: "600px"}}>
                 <div className="row col-12 justify-content-center">
                     <div className="col-12 card pt-3 pb-3 ">
@@ -78,6 +79,7 @@ import { useParams } from "react-router-dom";
                     </div>
                 </div>
             </div>
+
         )
     }
 }

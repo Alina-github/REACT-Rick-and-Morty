@@ -10,10 +10,18 @@ import {   BrowserRouter as Router,
     Route,
     Link,
     useParams,
-    useRouteMatch
+    useRouteMatch,
+    Redirect
 }  from "react-router-dom";
 
 class App extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {
+           isHomepage: false //if I change to true => feed will be rendered immediately
+        };
+    }
 
     render() {
         return (
@@ -21,7 +29,14 @@ class App extends React.Component {
                 <main>
                     <Header/>
                     <Switch>
-                        <Route path="/" exact component={Homepage} />
+                        <Route exact path="/"
+                            render={() => {
+                                return (
+                                    this.state.isHomepage ?
+                                        <Redirect to="/feed" /> : <Homepage />
+                                )
+                            }}
+                        />
                         <Route path="/feed" exact component={CharactersList} />
                         <Route path="/feed/card/:id" exact component={DetailedCard} />
                         <Route path="/feed/card/:id/episodes" component={Episodes} />
