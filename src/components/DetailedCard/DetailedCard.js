@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import './CharacterCard/style.css';
+import '../CharacterCard/style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from "react-router-dom";
-import Loader from "./Loader"
+import Loader from "../Loader"
 import { useParams } from "react-router-dom";
 
 
@@ -42,7 +42,7 @@ import { useParams } from "react-router-dom";
 
             <div className="container d-flex align-items-center" style={{minHeight: "600px"}}>
                 <div className="row col-12 justify-content-center">
-                    <div className="col-12 card pt-3 pb-3 ">
+                    <div className="col-12 card pt-3 pb-3" id="maincontent">
                         <div className="row no-gutters px-0">
                             <div className="col-sm-5 d-flex align-items-center justify-content-center">
                                 <img src={card.image} className="img-thumbnail" style={{"max-width": "70%"}} alt="..."/>

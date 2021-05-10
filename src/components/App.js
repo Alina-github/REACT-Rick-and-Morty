@@ -1,28 +1,24 @@
 import React from 'react';
-import CharactersList from "./CharactersList"
 import 'bootstrap/dist/css/bootstrap.css'
-import Homepage from "./Homepage/Homepage"
-import Header from "./Header/Header.js"
-import DetailedCard from "./DetailedCard"
-import Episodes from "./Episodes"
-import {   BrowserRouter as Router,
+import { BrowserRouter as Router,
     Switch,
     Route,
-    Link,
-    useParams,
-    useRouteMatch,
     Redirect
 }  from "react-router-dom";
+import CharactersList from "./CharactersList/CharactersList"
+import Homepage from "./Homepage/Homepage"
+import Header from "./Header/Header.js"
+import DetailedCard from "./DetailedCard/DetailedCard"
+import Episodes from "./Episodes/Episodes"
 
 class App extends React.Component {
 
     constructor() {
         super();
         this.state = {
-           isHomepage: false //if I change to true => feed will be rendered immediately
+           isHomepage: true
         };
     }
-
     render() {
         return (
             <Router>

@@ -7,8 +7,8 @@ export default function Homepage () {
 return (
     <div className="container text-center pt-5" style={{opacity: ".8" }}>
     <h3>This is the Homepage</h3>
-        <img src= 'home.svg' />
-    <h3>Please follow the link to see <a href="/feed"> Feed</a></h3>
+        <img src= 'home.svg' alt="Home"/>
+    <h3>Please follow the link to see <Link href="/feed"> Feed</Link></h3>
     </div>
 )
 

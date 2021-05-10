@@ -4,12 +4,15 @@ import {Link} from "react-router-dom";
 
 function Header() {
     return (
+
         <header className="blog-header py-3" style={{backgroundColor: "#D5CFE1"}}>
+            {/*Below is Skip Navigation Link for better accessibility*/}
+            <div id="skip"><a href="#maincontent">Skip to Main Content</a></div>
             <div className="container">
-                <div className="row flex-nowrap justify-content-between align-items-center">
+                <nav aria-label="primary" className="row flex-nowrap justify-content-between align-items-center">
                     <div className="col-4 pt-1">
                         <Link to={`/`}>
-                            <img src="/logo.svg"
+                            <img src="/logo.svg" alt="Logo"
                              className="col-4 d-flex justify-content-start align-items-center"
                              style={{maxWidth: "65%"}}/>
                         </Link>
@@ -29,7 +32,7 @@ function Header() {
                             </svg>
                         </a>
                     </div>
-                </div>
+                </nav>
             </div>
         </header>
 
