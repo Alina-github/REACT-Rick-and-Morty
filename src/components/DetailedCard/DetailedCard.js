@@ -20,6 +20,8 @@ const DetailedCard = () => {
          fetch(url)
              .then((res) => {
              if(!res.ok) {
+                 debugger
+
                  throw new Error ('oops')
              }
              return res.json()
@@ -31,8 +33,7 @@ const DetailedCard = () => {
                  setError(true)
                  setIsLoaded(false);
              })}, [])
-    //отрабатывает 1 раз
-         // if empty - на каждом рендере
+    //[] means the hock will be processed once
 
      if (error) {
          return <NoMatch/>;
