@@ -1,15 +1,17 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
-import { BrowserRouter as Router,
+import {
+    BrowserRouter as Router,
     Switch,
     Route,
-    Redirect
-}  from "react-router-dom";
+    Redirect,
+} from "react-router-dom";
 import CharactersList from "./CharactersList/CharactersList"
 import Homepage from "./Homepage/Homepage"
 import Header from "./Header/Header.js"
 import DetailedCard from "./DetailedCard/DetailedCard"
 import Episodes from "./Episodes/Episodes"
+import NoMatch from "./NoMatch/NoMatch"
 
 class App extends React.Component {
 
@@ -36,6 +38,7 @@ class App extends React.Component {
                         <Route path="/feed" exact component={CharactersList} />
                         <Route path="/feed/card/:id" exact component={DetailedCard} />
                         <Route path="/feed/card/:id/episodes" component={Episodes} />
+                        <Route path="*" component={NoMatch} />
                     </ Switch>
                 </main>
             </Router>
