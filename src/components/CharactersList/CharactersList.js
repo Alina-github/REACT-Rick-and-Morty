@@ -2,7 +2,7 @@ import React, {Fragment, useState, useEffect } from "react"
 import 'bootstrap/dist/css/bootstrap.css'
 import axios from "axios"
 import {Link, useRouteMatch } from "react-router-dom";
-import CharacterCard from "../CharacterCard/CharacterCard"
+import CharacterCard from "./CharacterCard/CharacterCard"
 import Loader from '../Loader'
 
 const CharactersList = () => {
@@ -27,7 +27,6 @@ const CharactersList = () => {
     const loadCards = () => {
 
         let url = `https://rickandmortyapi.com/api/character/${getRangeofCharacters(idRange)}`;
-        // let url = `https://rickandmortyapi.com/api/character?_limit=10`;
 
         axios.get(url).then(res => {
             if (isFetching) {
@@ -65,12 +64,11 @@ const CharactersList = () => {
             <Loader />
         )
     }
+
     return (
     <>
-            <div className="container" id="maincontent">
-                {data.map((item, key) => (
-                    // don't use single <div> for grouping elements
-                    //use Fragment instead
+        <div className="container" id="maincontent">
+            {data.map((item, key) => (
                     <Fragment key={key}>
                         <Link to={`${path}/card/${item.id}`}>
                             <CharacterCard item={item}  />
@@ -84,6 +82,5 @@ const CharactersList = () => {
         </>
     )
 }
+
 export default CharactersList
-
-

@@ -12,6 +12,6 @@ function withFetch (Component, apiUrl) {
         }
 
         get = () => axios.get(apiUrl)
-        // what if api is dynamic and depends on the range?
+
     }
 }

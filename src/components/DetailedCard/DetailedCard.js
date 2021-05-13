@@ -1,46 +1,40 @@
 import React, { useState, useEffect } from "react";
-import '../CharacterCard/style.css';
+import '../CharactersList/CharacterCard/style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Link} from "react-router-dom";
 import Loader from "../Loader"
 import { useParams } from "react-router-dom";
 import NoMatch from "../NoMatch/NoMatch";
-
+import {fetchClass} from "../fetchClass";
 
 const DetailedCard = () => {
 
      let {id} = useParams();
-     let url = `https://rickandmortyapi.com/api/character/${id}`;
 
      const [error, setError] = useState(null);
      const [isLoaded, setIsLoaded] = useState(false);
      const [card, setCard] = useState({});
 
      useEffect(() => {
-         fetch(url)
-             .then((res) => {
-             if(!res.ok) {
-                 debugger
 
-                 throw new Error ('oops')
-             }
-             return res.json()
-         })
+         const fetchCard = new fetchClass( {
+             url:`https://rickandmortyapi.com/api/character/${id}`,
+             method: "GET"
+     })
+         fetchCard.getData()
              .then((res) => {
                  setIsLoaded(true);
                  setCard(res);
-             }, (err) => {
+             }, () => {
                  setError(true)
                  setIsLoaded(false);
              })}, [])
-    //[] means the hock will be processed once
 
      if (error) {
          return <NoMatch/>;
      } else if (!isLoaded) {
          return <div className="container text-center"><Loader/></div>;
-     }
-     else {
+     } else {
          return (
              <div className="container d-flex align-items-center" style={{minHeight: "600px"}}>
                  <div className="row col-12 justify-content-center">
@@ -48,7 +42,7 @@ const DetailedCard = () => {
                          <div className="row no-gutters px-0">
                              <div className="col-sm-5 d-flex align-items-center justify-content-center">
                                  <img src={card.image} className="img-thumbnail" style={{"max-width": "70%"}}
-                                      alt="..."/>
+                                      alt={card.name}/>
                              </div>
                              <div className="col-sm-7">
                                  <h1 className="card-title pricing-card-title text-lg-left text-center mt-3">{card.name}</h1>

@@ -10,13 +10,13 @@ import CharactersList from "./CharactersList/CharactersList"
 import Homepage from "./Homepage/Homepage"
 import Header from "./Header/Header.js"
 import DetailedCard from "./DetailedCard/DetailedCard"
-import Episodes from "./Episodes/Episodes"
+import Episodes from "./DetailedCard/Episodes/Episodes"
 import NoMatch from "./NoMatch/NoMatch"
 
 class App extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
            isHomepage: true
         };
@@ -45,4 +45,5 @@ class App extends React.Component {
         )
     }
 }
+
 export default App
