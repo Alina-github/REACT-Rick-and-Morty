@@ -16,7 +16,6 @@ const DetailedCard = () => {
      const [card, setCard] = useState({});
 
      useEffect(() => {
-
          const fetchCard = new fetchClass( {
              url:`https://rickandmortyapi.com/api/character/${id}`,
              method: "GET"

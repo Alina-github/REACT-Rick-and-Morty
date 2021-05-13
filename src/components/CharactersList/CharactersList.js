@@ -4,11 +4,11 @@ import axios from "axios"
 import {Link, useRouteMatch } from "react-router-dom";
 import CharacterCard from "./CharacterCard/CharacterCard"
 import Loader from '../Loader'
+import useInfiniteScroll from "../useInfiniteScroll";
 
 const CharactersList = () => {
 
     let { path } = useRouteMatch();
-
     const cardsLimit = 10;
 
     const getRangeofCharacters = (id) => {
@@ -20,43 +20,29 @@ const CharactersList = () => {
         return charactersIds;
     }
 
-    const [data, setData] = useState([]);
-    const [idRange, setIdRange] = useState(1);
-    const [isFetching, setIsFetching] = useState(false);
-
     const loadCards = () => {
-
         let url = `https://rickandmortyapi.com/api/character/${getRangeofCharacters(idRange)}`;
-
         axios.get(url).then(res => {
             if (isFetching) {
                 setData([...data, ...res.data]);
-                setIsFetching(false)
-            }
-            else {
+                setIsFetching(false);
+                setIdRange(idRange + cardsLimit);
+            } else {
                 setData(res.data);
                 setIdRange(idRange + cardsLimit);
             }
         });
     }
 
+    const loadMoreCards = () => setTimeout(loadCards, 2000)
+
+    const [data, setData] = useState([]);
+    const [idRange, setIdRange] = useState(1);
+    const [isFetching, setIsFetching] = useInfiniteScroll(loadMoreCards);
+
     useEffect(() => {
         loadCards()
-        window.addEventListener("scroll", isScrolling);
-        return () => window.removeEventListener("scroll", isScrolling);
     }, [])
-
-    const isScrolling = () => {
-        if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
-            setIsFetching(true)
-        } else return
-    }
-
-    useEffect(() => {
-        if (isFetching) {
-            setTimeout(loadCards, 2000);
-        }
-    }, [isFetching]);
 
     // Check if data is ready or not.
     if (data.length === 0) {
@@ -69,17 +55,17 @@ const CharactersList = () => {
     <>
         <div className="container" id="maincontent">
             {data.map((item, key) => (
-                    <Fragment key={key}>
-                        <Link to={`${path}/card/${item.id}`}>
-                            <CharacterCard item={item}  />
-                        </Link>
-                    </Fragment>
-                ))}
-                <div className = "text-center mb-3">
-                    { isFetching ? <Loader /> : null}
-                </div>
+                <Fragment key={key}>
+                    <Link to={`${path}/card/${item.id}`}>
+                        <CharacterCard item={item}  />
+                    </Link>
+                </Fragment>
+            ))}
+            <div className = "text-center mb-3">
+                { isFetching ? <Loader /> : null}
             </div>
-        </>
+        </div>
+    </>
     )
 }
 
