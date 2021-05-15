@@ -8,7 +8,7 @@ import NoMatch from "../NoMatch/NoMatch";
 import {fetchClass} from "../fetchClass";
 
 const DetailedCard = () => {
-
+    // useParams returns an object of key/value pairs of URL parameters.
      let {id} = useParams();
 
      const [error, setError] = useState(null);
