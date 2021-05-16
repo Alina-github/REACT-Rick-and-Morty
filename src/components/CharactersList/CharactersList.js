@@ -40,7 +40,7 @@ const CharactersList = () => {
                 setData([...data, ...res.data.results]);
                 setIsFetching(false);
                 setPoint(res.data.info.next)
-            } else if () {
+            } else if (res.data.info.prev) {
                 setData([...data, ...res.data.results]);
                 setPoint(res.data.info.next)
             } else {
