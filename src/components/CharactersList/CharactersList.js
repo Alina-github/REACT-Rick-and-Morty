@@ -10,17 +10,6 @@ const CharactersList = () => {
 
     let { path } = useRouteMatch();
 
-    // const cardsLimit = 10; // !important
-    //
-    // const getRangeofCharacters = (id) => {
-    //     let charactersIds = [];
-    //     for (let i = 0; i < cardsLimit; i++) {
-    //         charactersIds.push(id);
-    //         id++;
-    //     }
-    //     return charactersIds;
-    // }
-
 //         const loadCards = () => {
 //
 //     let url = `https://rickandmortyapi.com/api/character/${getRangeofCharacters(idRange)}`; // how to get them it as range ([1-89])
@@ -36,44 +25,40 @@ const CharactersList = () => {
 //         }
 //     });
 // }
-    const [page, setPage] = useState(1);
 
     const loadMoreCards = () => setTimeout(() => loadCards(point), 2000)
-    let defaultEndpoint = `https://rickandmortyapi.com/api/character/`; // how to get them it as range ([1-89])
+    let defaultEndpoint = `https://rickandmortyapi.com/api/character/`;
 
     const [data, setData] = useState([]);
-    // const [idRange, setIdRange] = useState(1);
-
     const [isFetching, setIsFetching] = useInfiniteScroll(loadMoreCards);
-    const [point, setPoint] = useState(defaultEndpoint);
     const [error, getError] = useState(null);
-
+    const [point, setPoint] = useState(defaultEndpoint);
 
     const loadCards = (url) => {
     axios.get(url).then(res => {
-        if (isFetching) {
-            setData([...data, ...res.data.results]);
-            setIsFetching(false);
-            // setPage(page + 1);
-            setPoint(res.data.info.next)
-        } else {
-            setData(res.data.results);
-            setPoint(res.data.info.next)}
-        }
-    )
-        .catch(error => {getError(error)});
+            if (isFetching) {
+                setData([...data, ...res.data.results]);
+                setIsFetching(false);
+                setPoint(res.data.info.next)
+            } else if () {
+                setData([...data, ...res.data.results]);
+                setPoint(res.data.info.next)
+            } else {
+                setData([res.data.results])
+                setPoint(res.data.info.next)
+            }
+        })
     }
+
+    useEffect(()=>
+    loadCards(point), [])
 
     const handleOnSubmitSearch = (e) => {
         e.preventDefault();
-        const value = e.currentTarget.elements.query.value;
+        const value = e.currentTarget.elements.query.value || '';
         const endpoint = `https://rickandmortyapi.com/api/character/?name=${value}`
-        setPoint(endpoint)
+        setPoint(endpoint);
     }
-
-    useEffect(() => {
-        loadCards(point)
-    }, [])
 
     // Check if data is ready or not.
     if (data.length === 0) {
@@ -93,8 +78,7 @@ const CharactersList = () => {
     return (
     <div>
         <Search onSubmit={handleOnSubmitSearch}/>
-        {/*{error ? console.log(error) :*/}
-            <div>
+         <div>
             <div className="container" id="maincontent">
                 {data.map((item, key) => (
                     <Fragment key={key}>
@@ -108,7 +92,6 @@ const CharactersList = () => {
                 </div>
             </div>
             </div>
-        }
     </div>
     )
 }
