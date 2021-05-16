@@ -101,5 +101,3 @@ export default CharactersList
 //expanded search -> send query param (name) and render them
 // and main page
 // till Monday
-
-//1. create a custom hook
