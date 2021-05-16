@@ -10,23 +10,8 @@ const CharactersList = () => {
 
     let { path } = useRouteMatch();
 
-//         const loadCards = () => {
-//
-//     let url = `https://rickandmortyapi.com/api/character/${getRangeofCharacters(idRange)}`; // how to get them it as range ([1-89])
-//
-//     axios.get(url).then(res => {
-//         if (isFetching) {
-//             setData([...data, ...res.data]);
-//             setIsFetching(false);
-//             setIdRange(idRange + cardsLimit);
-//         } else {
-//             setData(res.data);
-//             setIdRange(idRange + cardsLimit);
-//         }
-//     });
-// }
-
     const loadMoreCards = () => setTimeout(() => loadCards(point), 2000)
+
     let defaultEndpoint = `https://rickandmortyapi.com/api/character/`;
 
     const [data, setData] = useState([]);
@@ -36,15 +21,14 @@ const CharactersList = () => {
 
     const loadCards = (url) => {
     axios.get(url).then(res => {
+
             if (isFetching) {
                 setData([...data, ...res.data.results]);
                 setIsFetching(false);
                 setPoint(res.data.info.next)
-            } else if (res.data.info.prev) {
-                setData([...data, ...res.data.results]);
-                setPoint(res.data.info.next)
-            } else {
-                setData([res.data.results])
+            }
+            else {
+                setData(res.data.results)
                 setPoint(res.data.info.next)
             }
         })
@@ -66,14 +50,6 @@ const CharactersList = () => {
             <Loader />
         )
     }
-    // else if (error){
-    //     return (
-    //         <div className='container text-center'>
-    //         <Search onSubmit={handleOnSubmitSearch}/>
-    //         <h1> Please enter valid name</h1>
-    //         </div>
-    //             )
-    // }
 
     return (
     <div>
