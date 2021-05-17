@@ -1,63 +1,26 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.css'
 
 
 const SearchForm = (props) => {
 
     return (
-        <div className="text-center m-3">
-            <form onSubmit={props.onSubmit}>
-                <label htmlFor="characterName" className="mr-1">
-                    <strong>Name:
-                    </strong>
-                </label>
-                <input type="search" name="query" id="characterName"></input>
-                <button>search</button>
-            </form>
-        </div>
+            <form onChange={props.onChange} onSubmit={props.onSubmit}>
+
+                <div className="container d-flex align-items-center justify-content-center mt-3 mb-3">
+                <div className="col-6">
+                <div className="input-group mb-3">
+                    <input type="text"
+                           name="query"
+                           id="characterName"
+                           className="form-control" placeholder="Character's name"
+                           aria-label="Character name" aria-describedby="button-addon2"/>
+                </div>
+                </div>
+            </div>
+        </form>
     )
 }
 
-
 export default SearchForm
-//
-//
-// import { TouchableOpacity, View, Image } from 'react-native';
-// import { SearchBar } from 'react-native-elements';
-// import React from 'react';
-//
-// export default class Search extends React.Component {
-
-//     constructor(props) {
-//         super(props);
-//         this.onClick = this.onClick.bind(this);
-//         this.state = {
-//             showSearchBar: false, // control what ever to render the searchbar or just the icon
-//         };
-//     }
-//     onClick() {
-//         let { showSearchBar } = this.state;
-//         this.setState({
-//             showSearchBar: !showSearchBar,
-//         });
-//     }
-//
-//     render() {
-//         const { showSearchBar } = this.state;
-//         return (
-//             <View>
-//                 {!showSearchBar ? (
-//                     <TouchableOpacity onPress={this.onClick}>
-//                         <Image
-//                             source={require('../images/tabs/search.png')}
-//                             style={{ height: 40, width: 60 }}
-//                             resizeMode={'contain'}
-//                         />
-//                     </TouchableOpacity>
-//                 ) : (
-//                     <SearchBar />
-//                 )}
-//             </View>
-//         );
-//     }
-// }
 
