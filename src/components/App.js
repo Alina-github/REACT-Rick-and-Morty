@@ -12,6 +12,7 @@ import Header from "./Header/Header.js"
 import DetailedCard from "./DetailedCard/DetailedCard"
 import Episodes from "./DetailedCard/Episodes/Episodes"
 import NoMatch from "./NoMatch/NoMatch"
+import List from "./FiltrationList/FiltrationList"
 
 class App extends React.Component {
 
@@ -35,7 +36,7 @@ class App extends React.Component {
                                 )
                             }}
                         />
-                        <Route path="/feed" exact component={CharactersList} />
+                        <Route path="/feed" exact component={List} />
                         <Route path="/feed/card/:id" exact component={DetailedCard} />
                         <Route path="/feed/card/:id/episodes" component={Episodes} />
                         <Route path="*" component={NoMatch} />

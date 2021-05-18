@@ -4,15 +4,13 @@ import axios from "axios"
 import {Link, useRouteMatch} from "react-router-dom";
 import CharacterCard from "./CharacterCard/CharacterCard"
 import Loader from '../Loader'
-import useInfiniteScroll from "../hook/useInfiniteScroll";
-import Search from './SearchForm'
+import SearchForm from './SearchForm'
+import Form from '../FiltrationList/Form/Form'
 
-const CharactersList = () => {
-
-    const [query, setQuery] = useState('');
+const CharactersList = (props) => {
 
     let {path} = useRouteMatch();
-    let defaultEndpoint = `https://rickandmortyapi.com/api/character/?name=${query}`;
+    let defaultEndpoint = `https://rickandmortyapi.com/api/character/?name=${props.query}`;
 
     const [data, setData] = useState([]);
     const [nextPage, setNextPage] = useState('');
@@ -20,28 +18,29 @@ const CharactersList = () => {
     const [isFetching, setIsFetching] = useState(false);
     const refContainer = useRef({data, nextPage});
 
-    const loadCards = () => {
-
-        setIsFetching(true);
-        let cancel;
-        axios({
-            method: 'GET',
-            url: defaultEndpoint,
-            cancelToken: new axios.CancelToken(c => cancel = c)
-        }).then(res => {
-            setData(res.data.results)
-            setNextPage(res.data.info.next);
-            setNoCharacterError(false);
-            setIsFetching(false);
-        })
-            .catch(err => {
-                    setNoCharacterError(err)
-                    if (axios.isCancel(err)) return
-                }
-            )
-        return () => cancel()
-    }
-    const loadMoreCards = ( nextPage ) => {
+    const loadCards = (nextPage) => {
+        if (refContainer.current.data == 0) {
+            setIsFetching(true);
+            let cancel;
+            axios({
+                method: 'GET',
+                url: defaultEndpoint,
+                cancelToken: new axios.CancelToken(c => cancel = c)
+            }).then(res => {
+                setData(res.data.results)
+                setNextPage(res.data.info.next);
+                setNoCharacterError(false);
+                setIsFetching(false);
+            })
+                .catch(err => {
+                        setNoCharacterError(err)
+                        if (axios.isCancel(err)) return
+                    }
+                )
+            return () => cancel()
+        } else {
+        // const loadMoreCards = ( nextPage ) => {
+        console.log(nextPage)
         setIsFetching(true);
         axios.get(nextPage).then(res => {
             setData([...refContainer.current.data, ...res.data.results]);
@@ -53,37 +52,31 @@ const CharactersList = () => {
                 }
             )
     }
+}
 
     useEffect(() => {
             refContainer.current = {...refContainer.current, data, nextPage};
-            //{data: data, nextPage: nextPage}
         },
         [data, nextPage])
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        const value = e.currentTarget.elements.query.value || '';
-        setQuery(value);
-    }
-
-    useEffect(() =>
-        loadCards(), [query])
+    useEffect(() => {
+        setData([]);
+        loadCards(defaultEndpoint)}, [props.query])
 
     const isScrolling = () => {
         if (document.documentElement.scrollTop + document.documentElement.clientHeight
             >= document.documentElement.scrollHeight - 1 && refContainer.current.nextPage) {
-            loadMoreCards( refContainer.current.nextPage );
+            loadCards( refContainer.current.nextPage );
         }
     }
 
     useEffect(() => {
-        window.addEventListener("scroll", isScrolling      );
+        window.addEventListener("scroll", isScrolling);
         return () => window.removeEventListener("scroll", isScrolling);
     }, [])
 
     return (
         <div>
-            <Search onChange={handleSearch} onSubmit={handleSearch}/>
             {error ? <h2 className="container d-flex align-items-center justify-content-center mt-3 mb-3"
                          style={{opacity: ".8"}}>Oops, no such character</h2> :
                 <div>
@@ -106,7 +99,3 @@ const CharactersList = () => {
 }
 
 export default CharactersList
-
-//expanded search -> send query param (name) and render them
-// and main page
-// till Monday
