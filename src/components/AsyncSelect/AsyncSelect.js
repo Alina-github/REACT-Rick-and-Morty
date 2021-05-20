@@ -177,8 +177,6 @@ import { useHistory } from "react-router-dom"
 // export default Selection;
 //
 // ------------------------------AsyncSelect(useHook)-------------------------------------------
-//
-
 
 
 const Selection = memo(() => {
@@ -192,12 +190,12 @@ const Selection = memo(() => {
     const fetchData =  (inputValue, callback) =>
     {
         if(!inputValue) {
-            callback([1,2,4]);
+            callback([]);
         } else {
             if (refContainer.current)  {
                 clearTimeout(refContainer.current)
             }
- // function in timeout changing my state and that rerenders component, need to clear
+ // function in timeout changing my state and that rerenders component => need to clear. ClearTimeout stops setTimeout if the the function has not already been executed.
 
             refContainer.current = setTimeout(()=>{
                 fetch(`https://rickandmortyapi.com/api/character/?name=` + inputValue,

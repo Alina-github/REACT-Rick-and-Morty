@@ -67,7 +67,7 @@ const DetailedCard = () => {
 
                                          <li className="mb-lg-3 mb-md-2 mb-sm-1"><small
                                              className="text-muted">Type: </small>
-                                             <h4 className="d-inline">{card.type == ''}</h4>
+                                             <h4 className="d-inline">{card.type}</h4>
                                          </li>
 
                                      </ul>
