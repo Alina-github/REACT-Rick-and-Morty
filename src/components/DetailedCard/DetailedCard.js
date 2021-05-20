@@ -8,7 +8,7 @@ import NoMatch from "../NoMatch/NoMatch";
 import {fetchClass} from "../fetchClass";
 
 const DetailedCard = () => {
-    // useParams returns an object of key/value pairs of URL parameters.
+
      let {id} = useParams();
 
      const [error, setError] = useState(null);
@@ -64,6 +64,12 @@ const DetailedCard = () => {
                                              location: </small>
                                              <h4>{card.location?.name}</h4>
                                          </li>
+
+                                         <li className="mb-lg-3 mb-md-2 mb-sm-1"><small
+                                             className="text-muted">Type: </small>
+                                             <h4 className="d-inline">{card.type == ''}</h4>
+                                         </li>
+
                                      </ul>
                                      <Link to={`${card.id}/episodes`}>
                                          <button type="button" className="btn btn-lg btn-dark">

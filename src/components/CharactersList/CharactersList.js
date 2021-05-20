@@ -4,14 +4,11 @@ import axios from "axios"
 import {Link, useRouteMatch} from "react-router-dom";
 import CharacterCard from "./CharacterCard/CharacterCard"
 import Loader from '../Loader'
-import SearchForm from './SearchForm'
-import Form from '../FiltrationList/Form/Form'
-
+let cancel;
 const CharactersList = (props) => {
 
     let {path} = useRouteMatch();
-    let defaultEndpoint = `https://rickandmortyapi.com/api/character/?name=${props.query}`;
-
+    let defaultEndpoint = `https://rickandmortyapi.com/api/character/`;
     const [data, setData] = useState([]);
     const [nextPage, setNextPage] = useState('');
     const [error, setNoCharacterError] = useState(false);
@@ -19,40 +16,38 @@ const CharactersList = (props) => {
     const refContainer = useRef({data, nextPage});
 
     const loadCards = (nextPage) => {
-        if (refContainer.current.data == 0) {
-            setIsFetching(true);
-            let cancel;
-            axios({
-                method: 'GET',
-                url: defaultEndpoint,
-                cancelToken: new axios.CancelToken(c => cancel = c)
-            }).then(res => {
-                setData(res.data.results)
-                setNextPage(res.data.info.next);
-                setNoCharacterError(false);
-                setIsFetching(false);
-            })
-                .catch(err => {
-                        setNoCharacterError(err)
-                        if (axios.isCancel(err)) return
-                    }
-                )
-            return () => cancel()
-        } else {
-        // const loadMoreCards = ( nextPage ) => {
-        console.log(nextPage)
+console.log(cancel)
         setIsFetching(true);
-        axios.get(nextPage).then(res => {
-            setData([...refContainer.current.data, ...res.data.results]);
+
+        if (cancel){
+            cancel()
+        }
+
+        axios({
+            method: 'GET',
+            url: (refContainer.current.data == 0) ? defaultEndpoint : nextPage,
+            params: {
+                // props.param
+                name: props.name || undefined,
+                type: props.type || undefined,
+                species: props.species || undefined,
+                status: props.status || undefined,
+                gender: props.gender|| undefined,
+            },
+            cancelToken: new axios.CancelToken(c => cancel = c)
+        }).then(res => {
+            (refContainer.current.data == 0) ? setData(res.data.results) : setData([...new Set ([...refContainer.current.data, ...res.data.results])]);
+            setNextPage(res.data.info.next);
+            setNoCharacterError(false);
             setIsFetching(false);
-            setNextPage(res.data.info.next)
-        })
-            .catch(err => {
-                    setIsFetching(false);
-                }
-            )
+        }).catch(err => {
+                setIsFetching(false);
+                setNoCharacterError(err)
+                if (axios.isCancel(err)) return
+            }
+        )
+        return () => cancel()
     }
-}
 
     useEffect(() => {
             refContainer.current = {...refContainer.current, data, nextPage};
@@ -61,7 +56,7 @@ const CharactersList = (props) => {
 
     useEffect(() => {
         setData([]);
-        loadCards(defaultEndpoint)}, [props.query])
+       loadCards(defaultEndpoint)}, [props.type, props.name, props.species, props.status, props.gender])
 
     const isScrolling = () => {
         if (document.documentElement.scrollTop + document.documentElement.clientHeight
@@ -88,7 +83,6 @@ const CharactersList = (props) => {
                                 </Link>
                             </Fragment>
                         ))}
-
                     </div>
                     {isFetching && <div className="text-center mb-3">
                         <Loader/>

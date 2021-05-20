@@ -10,13 +10,14 @@ import LocationInput from "./FilterForms/LocationInput";
 const Form = (props) => {
 
     return (
-        <>
-            <NameInput onChange={props.onChange}/>
-            <GenderCheckbox />
-            <StatusRadioButton/>
-            <SpeciesSelector />
-            <LocationInput />
-        </>
+        <form>
+            <NameInput onChange={props.onNameChange}/>
+            <GenderCheckbox isChecked={props.isChecked} onClick={props.onGenderChange} gender={props.gender}/>
+            <StatusRadioButton status={props.status} onChange={props.onStatusChange} />
+            <SpeciesSelector species={props.species} onChange={props.onSpeciesChange} />
+            <LocationInput onChange={props.onTypeChange}/>
+        </form>
     )
 }
+
 export default Form

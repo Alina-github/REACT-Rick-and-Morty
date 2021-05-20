@@ -4,12 +4,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 const LocationInput = (props) => {
 
     return (
-        <form>
+        <form onChange={props.onChange}>
             <div className="input-group mb-5 mt-5">
                 <input type="search"
-                       name="query"
+                       name="name"
                        id="characterName"
-                       className="form-control" placeholder="Character's name"
+                       className="form-control" placeholder="Type of the location..."
                        aria-label="Character name" aria-describedby="button-addon2"/>
             </div>
 

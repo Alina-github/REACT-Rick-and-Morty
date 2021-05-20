@@ -10,7 +10,7 @@ const NameInput = (props) => {
                        name="name"
                        id="characterName"
                        className="form-control" placeholder="Character's name"
-                       aria-label="Character name" aria-describedby="button-addon2"/>
+                       aria-label="Character name..." aria-describedby="button-addon2"/>
             </div>
         </form>
     )
