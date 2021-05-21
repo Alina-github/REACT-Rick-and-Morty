@@ -53,8 +53,8 @@ const CharactersList = (props) => {
         useEffect(() => {
             setData([]);
             const timer = setTimeout(() => {
-                loadCards(defaultEndpoint)}, 300);
-            setIsFetching(true);
+                loadCards(defaultEndpoint)}, 500);
+                setIsFetching(true);
             return () => clearTimeout(timer);
         }, [props.type, props.name, props.species, props.status, props.gender])
 

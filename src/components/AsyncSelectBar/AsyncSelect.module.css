@@ -1,6 +1,7 @@
 .search {
     border: black;
     background: transparent;
+    width: 30%;
 }
 
 .bar {
@@ -10,6 +11,11 @@
 
 .show {
     opacity: 1;
-    width: 200px;
+    width: 70%;
     transition: opacity 0.3s ease-in-out;
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
 }

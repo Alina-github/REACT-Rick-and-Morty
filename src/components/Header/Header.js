@@ -33,7 +33,7 @@ function Header() {
                         <h1 className="blog-header-logo text-dark display-4">Rick and Morty</h1>
                     </div>
                     <div className="col-4 d-flex justify-content-end align-items-center row">
-                        <div className="col-12">
+                        <div className="col-12 p-0">
                             {/*<DownshiftTwo query={query} onChange={handleCharacterSearch}/>*/}
                             <AsyncSearchBar />
                         </div>

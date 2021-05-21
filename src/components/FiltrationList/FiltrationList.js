@@ -29,7 +29,6 @@ const FiltrationList = (props) => {
     const handleStatusRadioButton = (e) => {
         const status = e.currentTarget.value ;
         setStatus(status);
-        console.log(status)
     }
 
     const handleGenderCheckbox = () => {

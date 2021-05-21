@@ -51,6 +51,7 @@ const Selection = memo((props) => {
      const onSearchChange = (selectedOption) => {
          if (selectedOption) {
              setSelectedOption({selectedOption});
+             setIsBoxVisible(false);
          }
         props.history.push(`/feed/card/${selectedOption.value}`);
          debugger
@@ -67,27 +68,18 @@ const Selection = memo((props) => {
 
 
     return (
-         <>
-             <div className="d-flex align-items-center justify-content-center row m-0 p-0 ">
-                 <div className="col-1 m-0 p-0">
+             <div className="d-flex align-items-center justify-content-center row m-0 p-0">
+                 <div className="col-2 m-0 p-0 d-flex justify-content-center">
                      <button onClick={toggleBox}
-                             className={style.search}>
-                         <svg xmlns="http://www.w3.org/2000/svg"
-                              width="20" height="20" fill="none"
-                              stroke="black"
-                              aria-label="Search"
-                              stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="mx-0"
-                              role="img"
-                              className="link"
-                              viewBox="0 0 24 24"> <title>Search</title>
-                         <circle cx="10.5" cy="10.5" r="7.5"/>
-                         <path d="M21 21l-5.2-5.2"/>
-                     </svg>
+                             className={style.search}
+                             style={{width:"25px", height:"25px", marginRight: "3px"}}
+                     >
+                     <img src="../../search.svg" className={style.icon}/>
                      </button>
                  </div>
-
              { isBoxVisible ?
-                 <div className="col-10 m-0 p-0 "
+                 <div className="col-10 m-0 p-0"
+                      className={style.show}
                       className={style.show}>
                          <AsyncSelect
                              cacheOptions
@@ -104,8 +96,8 @@ const Selection = memo((props) => {
                  </div> : <div className="col-0" className={style.bar}></div>
              }
                  </div>
-         </>
     )
- })
+ }
+ )
 
  export default withRouter(Selection);
