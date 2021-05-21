@@ -4,15 +4,15 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Redirect,
+    Redirect, useHistory,
 } from "react-router-dom";
-import CharactersList from "./CharactersList/CharactersList"
 import Homepage from "./Homepage/Homepage"
 import Header from "./Header/Header.js"
 import DetailedCard from "./DetailedCard/DetailedCard"
 import Episodes from "./DetailedCard/Episodes/Episodes"
 import NoMatch from "./NoMatch/NoMatch"
 import List from "./FiltrationList/FiltrationList"
+
 
 class App extends React.Component {
 
@@ -22,6 +22,7 @@ class App extends React.Component {
            isHomepage: true
         };
     }
+
     render() {
         return (
             <Router>

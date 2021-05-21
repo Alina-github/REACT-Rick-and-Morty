@@ -13,13 +13,13 @@ const DownshiftTwo = (props) =>  {
     const [names, setNames] = useState([]);
     const [isBoxVisible, setIsBoxVisible] = useState(false)
 
-    let defaultEndpoint = `https://rickandmortyapi.com/api/character/?name=${props.query}`;
+    let queryEndpoint = `https://rickandmortyapi.com/api/character/?name=${props.query}`;
 
     const getCharacterNames= () => {
         let cancel
         axios({
             method: 'GET',
-            url: defaultEndpoint,
+            url: queryEndpoint,
             params: {
             },
             cancelToken: new axios.CancelToken(c => cancel = c)
@@ -56,7 +56,6 @@ const DownshiftTwo = (props) =>  {
     return (
             <><label>
                     <button onClick={toggleBox} data-toggle="collapse" data-target="#demo">
-
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                              stroke="black"
                              aria-label="Search"
@@ -72,16 +71,6 @@ const DownshiftTwo = (props) =>  {
 
                 {isBoxVisible ?  <input id="demo" name="name" onChange={props.onChange}/> : null}
                 </label>
-
-            {/*    <div className="container" id="maincontent">*/}
-            {/*        {names.map((n, key) => (*/}
-            {/*            <Fragment key={key}>*/}
-            {/*                <Link to={`${path}/card/${n.id}`}>*/}
-            {/*                    {n.name}*/}
-            {/*                </Link>*/}
-            {/*            </Fragment>*/}
-            {/*        ))}*/}
-            {/*</div>*/}
             </>
         );
 }

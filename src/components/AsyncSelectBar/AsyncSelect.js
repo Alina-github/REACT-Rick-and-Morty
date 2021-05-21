@@ -1,10 +1,5 @@
-import React, {useEffect, useState, memo, useRef} from "react";
+import React, {useState, memo, useRef, useEffect} from "react";
 import AsyncSelect from "react-select/async";
-import axios from "axios";
-import Select from "react-select";
-
-import { useHistory } from "react-router-dom"
-
 
 // ------------------------------ASYNCSELECT-------------------------------------------
 //
@@ -42,7 +37,7 @@ import { useHistory } from "react-router-dom"
 //
 //     return (
 //         <>
-//             <AsyncSelect
+//             <AsyncSelectBar
 //                 value={""}
 //                 defaultValue={{label: "Default_list", value: "1"}}
 //                 cacheOptions
@@ -133,28 +128,36 @@ import { useHistory } from "react-router-dom"
 //                      })
 //                  })
 //                      .catch((error) => {
-//                          console.log(error, "catch the hoop");
+//                          console.log(error, "Need to change the request");
 //                      });
 //              }, 1000);
 //          };
 //      }
 //
+//
 //              onSearchChange = (selectedOption) => {
 //                  if (selectedOption) {
 //                      this.setState({
 //                          selectedOption,
-//                      });
-//                  }
-//              };
+//                      });}
 //
-//                 // handleSelect= (id) => {
-//                 //     history.push(`/card/${id}`);
-//                 // }
+//                  //     if (this.props.location.pathname == "/feed") {
+//                  //         this.props.history.push(`feed/card/1`)
+//                  // }else {
+//                  //         this.props.history.push(`9`)
+//                  //
+// }
+//
+//
+//
+//      // onChange={(e) => {
+// //                     onSearchChange(e);
+// //                 }}
 //
 //      render() {
 //          return (
 //                  <div>
-//                      <AsyncSelect
+//                      <AsyncSelectBar
 //                          cacheOptions
 //                          value={this.state.selectedOption}
 //                          loadOptions={this.fetchData}
@@ -162,7 +165,6 @@ import { useHistory } from "react-router-dom"
 //                          onChange={(e) => {
 //                              this.onSearchChange(e);
 //                          }}
-//                          onClick={console.log(this.state.selectedOption.value)}
 //                          defaultOptions={{
 //                              label: `name`,
 //                              value: `id`,
@@ -174,106 +176,89 @@ import { useHistory } from "react-router-dom"
 //  }
 //
 //
-// export default Selection;
+// export default withRouter (Selection);
+
+// ------------------------------AsyncSelectBar(useHook)-------------------------------------------
 //
-// ------------------------------AsyncSelect(useHook)-------------------------------------------
+const Selection = memo((props) => {
 
+     const [suggestion, setSuggestion] = useState([])
+     const [selectedOption, setSelectedOption] = useState({})
+     const refContainer = useRef(null)
 
-const Selection = memo(() => {
+     const fetchData =  (inputValue, callback) =>
+     {
+         if(!inputValue) {
+             callback([]);
+         } else {
+             if (refContainer.current)  {
+                 clearTimeout(refContainer.current)
+             }
+  // function in timeout changing my state and that re-renders component =>need to clear. ClearTimeout stops setTimeout if the the function has not already been executed.
+           //
 
-    const history = useHistory()
-
-    const [suggestion, setSuggestion] = useState([])
-    const [selectedOption, setSelectedOption] = useState({})
-    const refContainer = useRef(null)
-
-    const fetchData =  (inputValue, callback) =>
-    {
-        if(!inputValue) {
-            callback([]);
-        } else {
-            if (refContainer.current)  {
-                clearTimeout(refContainer.current)
-            }
- // function in timeout changing my state and that rerenders component => need to clear. ClearTimeout stops setTimeout if the the function has not already been executed.
-
-            refContainer.current = setTimeout(()=>{
-                fetch(`https://rickandmortyapi.com/api/character/?name=` + inputValue,
-                    {
-                        method: "GET",
-                    }
-                )
-                     .then((resp) => {
-                         return resp.json();
+             refContainer.current = setTimeout(()=>{
+                 fetch(`https://rickandmortyapi.com/api/character/?name=` + inputValue,
+                     {
+                         method: "GET",
+                     }
+                 )
+                      .then((resp) => {
+                          return resp.json();
+                      })
+                     .then((data) => {
+                         const requestResults = [];
+                         data.results.forEach((element) => {
+                             requestResults.push({
+                                 label: `${element.name}`,
+                                 value: element.id,
+                             });
+                             callback(requestResults);
+                             setSuggestion({suggestion: data.results})
+                         })
                      })
-                    .then((data) => {
-                        const requestResults = [];
-                        data.results.forEach((element) => {
-                            requestResults.push({
-                                label: `${element.name}`,
-                                value: element.id,
-                            });
-                            callback(requestResults);
-                            setSuggestion(data.results)
-                        })
-                    })
-                    .catch((error) => {
-                        console.log(error, "catch the hoop");
-                    });
-            }, 500);
-        };
-    }
+                     .catch((error) => {
+                         console.log(error, "catch the hoop");
+                     });
+             }, 500);
+         };
+     }
 
-    const onSearchChange = (selectedOption) => {
-        console.log(selectedOption.value)
-        history.push(`/feed/card/${selectedOption.value}`);
-        if (selectedOption) {
-            setSelectedOption({selectedOption});
+     const onSearchChange = (selectedOption) => {
+         if (selectedOption) {
+             setSelectedOption({selectedOption});
+         }
+        props.history.push(`/feed/card/${selectedOption.value}`);
+         debugger
+     };
 
-        }
-    };
-
-    // const [isBoxVisible, setIsBoxVisible] = useState(false)
     //
     // const toggleBox = () => {
     //     setIsBoxVisible(!isBoxVisible);
     //     console.log(isBoxVisible)
-    //     inputEl.current.focus();
     // };
     //
     // useEffect(()=>
     // {    }, [isBoxVisible])
-    //
-    //
-    // const inputEl = useRef(null);
-    //
 
 
     return (
-
-        <>
-            {/*<label className="col-12">*/}
-            {/*<button onClick={toggleBox} style={{display: "inline-block"}}> text*/}
-            {/*</button>*/}
-            {/*{isBoxVisible ?*/}
-
-            <AsyncSelect
-                // ref={inputEl}
-                cacheOptions
-                value={selectedOption}
-                loadOptions={fetchData}
-                options={fetchData}
-                placeholder="Character Name"
-                onChange={(e) => {
-                    onSearchChange(e);
-                }}
-                defaultOptions={{label:'text',
-                    value: 'text'}}
-            />
-                {/*:  null}*/}
-            {/*</label>*/}
-                </>
-    );
-})
-
-export default Selection
+         <>
+             {/*<button>TEXT</button>*/}
+             <AsyncSelect
+                 cacheOptions
+                 isFocused={false}
+                 value={selectedOption}
+                 loadOptions={fetchData}
+                 options={fetchData}
+                 placeholder="Search ..."
+                 onChange={(e) => {
+                     onSearchChange(e);
+                 }}
+                 defaultOptions={{label:'text',
+                     value: 'text'}}
+             />
+                 </>
+     );
+ })
+ export default Selection;

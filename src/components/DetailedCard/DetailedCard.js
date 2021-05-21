@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import NoMatch from "../NoMatch/NoMatch";
 import {fetchClass} from "../fetchClass";
 
+
 const DetailedCard = () => {
 
      let {id} = useParams();
@@ -27,7 +28,7 @@ const DetailedCard = () => {
              }, () => {
                  setError(true)
                  setIsLoaded(false);
-             })}, [])
+             })}, [id])
 
      if (error) {
          return <NoMatch/>;
@@ -86,7 +87,6 @@ const DetailedCard = () => {
      }
 }
 export default DetailedCard
-
 
 
 

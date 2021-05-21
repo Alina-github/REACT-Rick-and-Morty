@@ -6,7 +6,6 @@ import CharacterCard from "./CharacterCard/CharacterCard"
 import Loader from '../Loader'
 let cancel;
 
-
 const CharactersList = (props) => {
 
     let {path} = useRouteMatch();
@@ -16,13 +15,8 @@ const CharactersList = (props) => {
     const [error, setNoCharacterError] = useState(false);
     const [isFetching, setIsFetching] = useState(false);
     const refContainer = useRef({data, nextPage});
-    // const refSetTimeoutContainer = useRef(null);
 
     const loadCards = (nextPage) => {
-
-        // if (refContainer.current) {
-        //     clearTimeout(refSetTimeoutContainer.current)
-        // }
 
         setIsFetching(true);
             axios({
@@ -96,7 +90,6 @@ const CharactersList = (props) => {
                     </div>}
             </div>
         )
-
 }
 
 export default CharactersList

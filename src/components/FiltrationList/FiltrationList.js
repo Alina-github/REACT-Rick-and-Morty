@@ -25,29 +25,20 @@ const FiltrationList = (props) => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        const value = e.currentTarget.elements.name.value;
-        setName(value);
-        console.log(value)
+        const value = e.currentTarget.value;
+        if(e.currentTarget.id === 'characterName') {
+            setName(value);
+        } else if (e.currentTarget.id === 'location') {
+            setType(value);
+        } else {
+            setSpecies(value)
+        }
     }
 
-    const handleLocationSearch = (e) => {
-        e.preventDefault();
-        const type = e.currentTarget.elements.name.value ;
-        setType(type);
-        console.log(type)
-    }
-
-    const handleStatusSearch = (e) => {
+    const handleStatusRadioButton = (e) => {
         const status = e.currentTarget.value ;
         setStatus(status);
         console.log(status)
-    }
-
-    const handleSpeciesSearch = (e) => {
-        e.preventDefault();
-        const species = e.currentTarget.value ;
-        setSpecies(species);
-        console.log(species)
     }
 
     const handleGenderCheckbox = () => {
@@ -62,24 +53,18 @@ const FiltrationList = (props) => {
         },
         [isChecked])
 
-    // const param = { name, gender, status, species, type }
-
     return (
          <div className="container-xl">
             <div className="row">
                 <div className="col-3">
-                    <Form onNameChange={handleSearch} onSubmit={handleSearch}
-                          species={species} onSpeciesChange={handleSpeciesSearch}
-                          isChecked={isChecked} gender={gender}
+                    <Form onChange={handleSearch}
                           onGenderChange={handleGenderCheckbox}
-                          status = {status} onStatusChange={handleStatusSearch}
-                          onTypeChange={handleLocationSearch}
+                          onStatusChange={handleStatusRadioButton}
+                          species={species} isChecked={isChecked} gender={gender} status={status} type={type}
                     />
                 </div>
-
                 <div className="col-9">
                     <CharactersList
-                        // param={param}
                     name={name}
                     type ={type}
                     species={species}

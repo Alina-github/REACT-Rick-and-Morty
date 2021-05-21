@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 import {Link} from "react-router-dom";
 import DownshiftTwo from "../Dropdown/Dropdown";
-import AsyncSearchBar from "../AsyncSelect/AsyncSelect";
+import AsyncSearchBar from "../AsyncSelectBar/AsyncSelect";
 
 
 function Header() {
