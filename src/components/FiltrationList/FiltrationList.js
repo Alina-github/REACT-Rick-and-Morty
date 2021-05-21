@@ -14,15 +14,6 @@ const FiltrationList = (props) => {
     const [species, setSpecies] = useState('');
     const [type, setType] = useState('');
 
-    const [params, setParams] = useState('');
-
-    // let params = {
-    //     name : value
-        // gender : ,
-        // status : ,
-        // species : ,
-        // type :
-
     const handleSearch = (e) => {
         e.preventDefault();
         const value = e.currentTarget.value;
