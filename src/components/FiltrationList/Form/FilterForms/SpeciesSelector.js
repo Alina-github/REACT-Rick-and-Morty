@@ -10,7 +10,7 @@ const SpeciesSelector = (props) => {
                     <div className="input-group-prepend">
                         <label className="input-group-text" htmlFor="inputGroupSelect01">Species</label>
                     </div>
-                    <select className="custom-select" id="inputGroupSelect01"
+                    <select className="custom-select" id="specious" name="species"
                             value={props.species} onChange={props.onChange}>
                         <option selected value="">Choose...</option>
                         <option value="alien">Alien</option>

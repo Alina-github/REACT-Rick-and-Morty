@@ -1,14 +1,13 @@
-import { useState, useEffect } from "react"
-
+import {useState, useEffect} from "react"
 
 const useInfiniteScroll = (callback) => {
     const [isFetching, setIsFetching] = useState(false);
 
     function isScrolling() {
-        if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.documentElement.scrollHeight-1
-        )
-        {setIsFetching(true)}
-        else return
+        if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 1
+        ) {
+            setIsFetching(true)
+        } else return
     }
 
     useEffect(() => {

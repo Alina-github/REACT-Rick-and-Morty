@@ -5,17 +5,6 @@ import AsyncSearchBar from "../AsyncSelectBar/AsyncSelect";
 
 function Header() {
 
-    const [query, setQuery] = useState('');
-    const [collabs, setCollabs] = useState("");
-
-
-    const handleCharacterSearch = (e) => {
-        e.preventDefault();
-        const query = e.currentTarget.value ;
-        setQuery(query);
-    }
-
-
     return (
         <header className="blog-header py-3" style={{backgroundColor: "#D5CFE1"}}>
             {/*Below is Skip Navigation Link for better accessibility*/}
@@ -25,8 +14,8 @@ function Header() {
                     <div className="col-4 pt-1">
                         <Link to={`/`}>
                             <img src="/logo.svg" alt="Logo"
-                             className="col-4 d-flex justify-content-start align-items-center"
-                             style={{maxWidth: "65%"}}/>
+                                 className="col-4 d-flex justify-content-start align-items-center"
+                                 style={{maxWidth: "65%"}}/>
                         </Link>
                     </div>
                     <div className="col-4 text-center">
@@ -35,7 +24,7 @@ function Header() {
                     <div className="col-4 d-flex justify-content-end align-items-center row">
                         <div className="col-12 p-0">
                             {/*<DownshiftTwo query={query} onChange={handleCharacterSearch}/>*/}
-                            <AsyncSearchBar />
+                            <AsyncSearchBar/>
                         </div>
                     </div>
                 </nav>
@@ -43,4 +32,5 @@ function Header() {
         </header>
     )
 }
+
 export default Header

@@ -22,4 +22,5 @@ class fetchClass {
             })
     }
 }
+
 export {fetchClass}

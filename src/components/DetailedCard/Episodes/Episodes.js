@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, {useState, useEffect} from "react"
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 
@@ -20,14 +20,14 @@ export default function Episodes(props) {
     }
 
     return (
-        <div class = "container">
-        <ul class="mt-4">
-            {episodes.map(episode => (
-                <div class="text-center">
-                    <a href={episode}>{episode}</a>
-                </div> ))
-            }
-        </ul>
+        <div class="container">
+            <ul class="mt-4">
+                {episodes.map(episode => (
+                    <div class="text-center">
+                        <a href={episode}>{episode}</a>
+                    </div>))
+                }
+            </ul>
         </div>
     )
 }

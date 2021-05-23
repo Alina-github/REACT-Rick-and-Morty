@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 const GenderCheckbox = (props) => {
 
     return (
-        <form>
             <div className="mb-5 mt-5">
                 <h6>Gender:</h6>
                 <div className="form-check">
@@ -12,14 +11,13 @@ const GenderCheckbox = (props) => {
                            type="checkbox"
                            checked={props.isChecked}
                            onClick={props.onClick}
+                           name="gender"
                     />
                     <label className="form-check-label" htmlFor="flexCheckDefault">
                         Female
                     </label>
                 </div>
             </div>
-
-        </form>
     )
 }
 export default GenderCheckbox

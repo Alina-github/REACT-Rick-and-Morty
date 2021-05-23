@@ -12,9 +12,9 @@ const Form = (props) => {
     return (
         <>
             <NameInput onChange={props.onChange}/>
-            <GenderCheckbox isChecked={props.isChecked} onClick={props.onGenderChange} gender={props.gender}/>
-            <StatusRadioButton status={props.status} onChange={props.onStatusChange} />
-            <SpeciesSelector species={props.species} onChange={props.onChange} />
+            <GenderCheckbox isChecked={props.isChecked} onClick={props.onChange} gender={props.gender}/>
+            <StatusRadioButton status={props.status} onChange={props.onChange}/>
+            <SpeciesSelector species={props.species} onChange={props.onChange}/>
             <LocationInput onChange={props.onChange}/>
         </>
     )

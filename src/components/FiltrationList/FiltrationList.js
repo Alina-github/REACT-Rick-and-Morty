@@ -3,63 +3,41 @@ import 'bootstrap/dist/css/bootstrap.css'
 import CharactersList from "../CharactersList/CharactersList";
 import Form from './Form/Form'
 
-
 const FiltrationList = (props) => {
 
-    const [isChecked, setIsChecked] = useState(false);
-
-    const [name, setName] = useState('');
-    const [gender, setGenderChecked] = useState('');
-    const [status, setStatus] = useState('alive');
-    const [species, setSpecies] = useState('');
-    const [type, setType] = useState('');
+    const filters = {name: '', type: '', species: '', status: 'alive', gender: ''}
+    const [filterParameters, setParams] = useState(filters);
 
     const handleSearch = (e) => {
-        e.preventDefault();
+
+        let target = e.currentTarget.name;
         const value = e.currentTarget.value;
-        if(e.currentTarget.id === 'characterName') {
-            setName(value);
-        } else if (e.currentTarget.id === 'location') {
-            setType(value);
-        } else {
-            setSpecies(value)
+
+        if (target === 'name' || target === 'type' || target === 'species') {
+            e.preventDefault();
+            setParams({...filterParameters, [target]: value});
+        } else if (target === 'status') {
+            setParams({...filterParameters, [target]: value})
+        } else if (target === "gender") {
+            const checkboxStatus = e.currentTarget.checked;
+            setParams({...filterParameters, [target]: !checkboxStatus ? "" : "female"});
         }
     }
 
-    const handleStatusRadioButton = (e) => {
-        const status = e.currentTarget.value ;
-        setStatus(status);
-    }
-
-    const handleGenderCheckbox = () => {
-        setIsChecked(!isChecked)
-    }
-
-    const refContainer = useRef({isChecked});
-
-    useEffect(() => {
-            refContainer.current = {...refContainer.current, isChecked};
-            setGenderChecked( refContainer.current.isChecked ? 'female': '');
-        },
-        [isChecked])
-
     return (
-         <div className="container-xl">
+        <div className="container-xl">
             <div className="row">
                 <div className="col-3">
                     <Form onChange={handleSearch}
-                          onGenderChange={handleGenderCheckbox}
-                          onStatusChange={handleStatusRadioButton}
-                          species={species} isChecked={isChecked} gender={gender} status={status} type={type}
+                          species={filterParameters.species}
+                          gender={filterParameters.gender}
+                          status={filterParameters.status}
+                          type={filterParameters.type}
                     />
                 </div>
                 <div className="col-9">
                     <CharactersList
-                    name={name}
-                    type ={type}
-                    species={species}
-                    gender={gender}
-                    status = {status}
+                        params={filterParameters}
                     />
                 </div>
             </div>

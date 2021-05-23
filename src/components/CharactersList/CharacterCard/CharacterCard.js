@@ -15,6 +15,7 @@ function CharacterCard(props) {
         </div>
     )
 }
+
 export default CharacterCard
 
 
